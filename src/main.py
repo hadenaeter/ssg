@@ -1,4 +1,4 @@
-from nodes.textnode import TextNode, TextType
+from textnode import TextNode, TextType
 
 def main():
     node = TextNode("Click here", TextType.LINK, url="https://example.com")

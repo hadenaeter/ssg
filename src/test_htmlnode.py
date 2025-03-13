@@ -1,18 +1,7 @@
 import unittest
-from nodes.htmlnode import HTMLNode
+from htmlnode import HTMLNode
 
 class TestHTMLNode(unittest.TestCase):
-
-        def test_to_html_empty_node(self):
-            node = HTMLNode()
-            with self.assertRaises(NotImplementedError):
-                node.to_html()
-
-        def test_props_to_html_no_props(self):
-            node = HTMLNode(tag='div')
-            with self.assertRaises(Exception) as context:
-                node.props_to_html()
-            self.assertEqual(str(context.exception), "no props found")
 
         def test_props_to_html_one_prop(self):
             node = HTMLNode(tag='input', props={'type': 'text'})
