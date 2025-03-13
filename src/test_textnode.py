@@ -45,3 +45,6 @@ class TestTextNode(unittest.TestCase):
         expected_repr_node4 = ("TextNode(text='Hello', text_type='NORMAL', "
             "url='https://example.com')")
         self.assertEqual(repr(node4), expected_repr_node4)
+
+if __name__ == "__main__":
+    unittest.main()

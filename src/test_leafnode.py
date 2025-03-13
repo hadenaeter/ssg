@@ -37,3 +37,6 @@ class TestLeafNode(unittest.TestCase):
             node,
             '<div data-test="value" style="color: red;">Hello</div>'
         )
+
+if __name__ == "__main__":
+    unittest.main()

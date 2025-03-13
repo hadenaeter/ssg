@@ -1,8 +1,18 @@
-from textnode import TextNode, TextType
+from parentnode import ParentNode
+from leafnode import LeafNode
 
 def main():
-    node = TextNode("Click here", TextType.LINK, url="https://example.com")
-    print(node)
+    node = ParentNode(
+        "p",
+        [
+            LeafNode("b", "Bold text"),
+            LeafNode(None, "Normal text"),
+            LeafNode("i", "italic text"),
+            LeafNode(None, "Normal text"),
+        ],
+    )
+
+    print(node.to_html())
 
 if __name__=="__main__":
     main()

@@ -47,3 +47,6 @@ class TestHTMLNode(unittest.TestCase):
             node = HTMLNode(tag='a', value='Link', props={'href': 'http://example.com'},
                             children=[HTMLNode(tag='span', value='span text')])
             self.assertEqual(repr(node), "HTMLNode(tag='a', value='Link', children=[HTMLNode(tag='span', value='span text', children=[], props={})], props={'href': 'http://example.com'})")
+
+if __name__ == "__main__":
+    unittest.main()
