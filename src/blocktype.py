@@ -28,6 +28,10 @@ def block_to_block_type(block):
     elif re.match(ul_match, block + "\n"):
         return BlockType.UNORDERED_LIST
     elif re.match(ol_match, block + "\n"):
+        lines = block.split("\n")
+        for i in range(0, len(lines)):
+            if lines[i][:len(str(i + 1))] != str(i + 1):
+                return BlockType.PARAGRAPH
         return BlockType.ORDERED_LIST
     else:
         return BlockType.PARAGRAPH
