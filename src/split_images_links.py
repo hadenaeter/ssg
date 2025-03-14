@@ -8,7 +8,7 @@ def split_nodes_image(old_nodes):
     for node in old_nodes:
         text = node.text
         if not extract_markdown_images(text):
-            raise ValueError("no image in text")
+            new_nodes.append(node)
         else:
             start = 0
             middle = 0
@@ -43,7 +43,7 @@ def split_nodes_link(old_nodes):
     for node in old_nodes:
         text = node.text
         if not extract_markdown_links(text):
-            raise ValueError("no link in text")
+            new_nodes.append(node)
         else:
             start = 0
             middle = 0

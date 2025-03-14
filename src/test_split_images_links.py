@@ -21,24 +21,6 @@ class TestSplitNodesImage(unittest.TestCase):
                 new_nodes,
             )
 
-    def test_no_images(self):
-        node = TextNode(
-            "This is text without any images.",
-            TextType.NORMAL,
-        )
-        with self.assertRaises(ValueError) as context:
-            split_nodes_image([node])
-        self.assertEqual(str(context.exception), "no image in text")
-
-    def test_broken_syntax(self):
-        node = TextNode(
-            "This is a broken ![image](https://i.imgur.com/zjjcJKZ.png and some regular text.",
-            TextType.NORMAL,
-        )
-        with self.assertRaises(ValueError) as context:
-            split_nodes_image([node])
-        self.assertEqual(str(context.exception), "no image in text")
-
     def test_concatenated_images(self):
         node = TextNode(
             "This is text with images ![img1](url1)![img2](url2)",
@@ -74,24 +56,6 @@ class TestSplitNodesLink(unittest.TestCase):
             ],
             new_nodes
         )
-
-        def test_no_links(self):
-                node = TextNode(
-                    "This is text without any links.",
-                    TextType.NORMAL,
-                )
-                with self.assertRaises(ValueError) as context:
-                    split_nodes_link([node])
-                self.assertEqual(str(context.exception), "no link in text")
-
-        def test_broken_syntax(self):
-            node = TextNode(
-                "This is a broken [link](https://www.boot.dev and some regular text.",
-                TextType.NORMAL,
-            )
-            with self.assertRaises(ValueError) as context:
-                split_nodes_link([node])
-            self.assertEqual(str(context.exception), "no link in text")
 
         def test_concatenated_links(self):
             node = TextNode(
