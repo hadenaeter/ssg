@@ -7,12 +7,12 @@ def split_nodes_image(old_nodes):
     matches = r"\!\[(.*?)\]\((.*?)\)"
     for node in old_nodes:
         text = node.text
+        start = 0
+        middle = 0
+        end = 0
         if not extract_markdown_images(text):
             new_nodes.append(node)
         else:
-            start = 0
-            middle = 0
-            end = 0
             for i in range(0, len(text)):
                 if text[i] == "!":
                     start = i
@@ -34,20 +34,24 @@ def split_nodes_image(old_nodes):
                         )
                         start = 0
                         middle = 0
+            if not (end == len(text) - 1):
+                new_nodes.append(
+                    TextNode(text[end+1:], TextType.NORMAL)
+                )
     return new_nodes
 
 
 def split_nodes_link(old_nodes):
     new_nodes = []
     matches = r"\[(.*?)\]\((.*?)\)"
+    start = 0
+    middle = 0
+    end = 0
     for node in old_nodes:
         text = node.text
         if not extract_markdown_links(text):
             new_nodes.append(node)
         else:
-            start = 0
-            middle = 0
-            end = 0
             for i in range(0, len(text)):
                 if text[i] == "[":
                     start = i
@@ -69,20 +73,8 @@ def split_nodes_link(old_nodes):
                         )
                         start = 0
                         middle = 0
+            if not (end == len(text) - 1):
+                new_nodes.append(
+                    TextNode(text[end+1:], TextType.NORMAL)
+                )
     return new_nodes
-
-"""
-node = TextNode(
-    "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
-    TextType.TEXT,
-)
-new_nodes = split_nodes_link([node])
-# [
-#     TextNode("This is text with a link ", TextType.TEXT),
-#     TextNode("to boot dev", TextType.LINK, "https://www.boot.dev"),
-#     TextNode(" and ", TextType.TEXT),
-#     TextNode(
-#         "to youtube", TextType.LINK, "https://www.youtube.com/@bootdotdev"
-#     ),
-# ]
-"""
