@@ -1,5 +1,7 @@
+from recursive_copy import rcopy
+
 def main():
-    pass
+    rcopy("static", "public")
 
 if __name__=="__main__":
     main()
