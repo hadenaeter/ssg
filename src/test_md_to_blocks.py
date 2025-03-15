@@ -37,3 +37,15 @@ class TestMarkdownToBlocks(unittest.TestCase):
     def test_blocks_with_only_markdown_syntax(self):
             markdown = "# Heading 1\n\n* List Item 1\n* List Item 2"
             self.assertEqual(markdown_to_blocks(markdown), ["# Heading 1", "* List Item 1\n* List Item 2"])
+
+    def test_markdown_to_blocks(self):
+        md = """This is **bolded** paragraph\n\nThis is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line\n\n- This is a list\n- with items"""
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(
+            blocks,
+            [
+                "This is **bolded** paragraph",
+                "This is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line",
+                "- This is a list\n- with items",
+            ],
+        )
