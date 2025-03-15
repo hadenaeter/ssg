@@ -33,7 +33,10 @@ def markdown_to_html_node(markdown):
                     )]
                 ))
             case BlockType.BLOCKQUOTE:
-                block = block.replace('\n', '')[2:].replace('> ', '<br>')
+                block = block.replace('\n', '')[2:].replace(
+                    ('>' or '> '),
+                    '<br>'
+                )
                 html_nodes.append(ParentNode(
                     "blockquote",
                     text_to_children(block)

@@ -7,7 +7,7 @@ def split_nodes_image(old_nodes):
     matches = r"\!\[(.*?)\]\((.*?)\)"
     for node in old_nodes:
         text = node.text
-        start = 0
+        start = -1
         middle = 0
         end = 0
         if not extract_markdown_images(text):
@@ -16,9 +16,9 @@ def split_nodes_image(old_nodes):
             for i in range(0, len(text)):
                 if text[i] == "!":
                     start = i
-                elif start and text[i] == "]" and text[i+1] == "(":
+                elif start >= 0 and text[i] == "]" and text[i+1] == "(":
                     middle = i
-                elif start and middle and text[i] == ")":
+                elif start >= 0 and middle and text[i] == ")":
                     if re.match(matches, text[start:i + 1]):
                         new_nodes.append(
                             TextNode(text[end + 1 if end > 0 else end:start],
@@ -32,8 +32,9 @@ def split_nodes_image(old_nodes):
                                     text[middle+2:end]
                                 )
                         )
-                        start = 0
+                        start = -1
                         middle = 0
+
             if not (end == len(text) - 1):
                 new_nodes.append(
                     TextNode(text[end+1:], TextType.NORMAL)
@@ -44,7 +45,7 @@ def split_nodes_image(old_nodes):
 def split_nodes_link(old_nodes):
     new_nodes = []
     matches = r"\[(.*?)\]\((.*?)\)"
-    start = 0
+    start = -1
     middle = 0
     end = 0
     for node in old_nodes:
@@ -55,9 +56,9 @@ def split_nodes_link(old_nodes):
             for i in range(0, len(text)):
                 if text[i] == "[":
                     start = i
-                elif start and text[i] == "]" and text[i+1] == "(":
+                elif start >= 0 and text[i] == "]" and text[i+1] == "(":
                     middle = i
-                elif start and middle and text[i] == ")":
+                elif start >= 0 and middle and text[i] == ")":
                     if re.match(matches, text[start:i + 1]):
                         new_nodes.append(
                             TextNode(text[end + 1 if end > 0 else end:start],
